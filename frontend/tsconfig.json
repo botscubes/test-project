@@ -1,0 +1,7 @@
+{
+    "files": ["src/main.ts", "src/router.ts", "src/routes.ts", "src/template.ts"],
+    "compilerOptions": {
+      "noImplicitAny": false,
+      "target": "es5"
+    }
+  }
