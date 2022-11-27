@@ -1,6 +1,7 @@
 
 import { template } from "./template";
 
+const fs = require("fs");
 
 
 type Route = {
@@ -21,14 +22,28 @@ class Router {
                 return route.handler
             }
         }
-        return (req, res) => {
-            res.writeHead(404);
-            res.end(template("404"));
-        }
+        return defaultHandler();
     }
 
+
+    
 }
 
+function defaultHandler(): (req: any, res: any) => void {
 
+
+    return (req: any, res: any) => {
+        const filePath = "resources" + req.url;
+        fs.access(filePath, fs.constants.R_OK, err => {
+            if(err){
+                res.writeHead(404);
+                res.end(template("404"));
+            }
+            else{
+                fs.createReadStream(filePath).pipe(res);
+            }
+        });
+    }
+}
 
 export const router: Router = new Router();

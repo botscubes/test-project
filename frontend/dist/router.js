@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 var template_1 = require("./template");
+var fs = require("fs");
 var Router = /** @class */ (function () {
     function Router() {
         this.routes = [];
@@ -16,11 +17,22 @@ var Router = /** @class */ (function () {
                 return route.handler;
             }
         }
-        return function (req, res) {
-            res.writeHead(404);
-            res.end((0, template_1.template)("404"));
-        };
+        return defaultHandler();
     };
     return Router;
 }());
+function defaultHandler() {
+    return function (req, res) {
+        var filePath = "resources" + req.url;
+        fs.access(filePath, fs.constants.R_OK, function (err) {
+            if (err) {
+                res.writeHead(404);
+                res.end((0, template_1.template)("404"));
+            }
+            else {
+                fs.createReadStream(filePath).pipe(res);
+            }
+        });
+    };
+}
 exports.router = new Router();
