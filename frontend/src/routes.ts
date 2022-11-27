@@ -7,9 +7,3 @@ router.route('/', (req: any, res: any) => {
     res.end(template("index"));
 });
 
-
-
-router.route('/', (req: any, res: any) => {
-    res.writeHead(200);
-    res.end(template("index"));
-});

@@ -36,8 +36,9 @@ function defaultHandler(): (req: any, res: any) => void {
         const filePath = "resources" + req.url;
         fs.access(filePath, fs.constants.R_OK, err => {
             if(err){
-                res.writeHead(404);
-                res.end(template("404"));
+                res.writeHead(200);
+                res.end(template("index"));
+
             }
             else{
                 fs.createReadStream(filePath).pipe(res);

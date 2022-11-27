@@ -26,8 +26,8 @@ function defaultHandler() {
         var filePath = "resources" + req.url;
         fs.access(filePath, fs.constants.R_OK, function (err) {
             if (err) {
-                res.writeHead(404);
-                res.end((0, template_1.template)("404"));
+                res.writeHead(200);
+                res.end((0, template_1.template)("index"));
             }
             else {
                 fs.createReadStream(filePath).pipe(res);
