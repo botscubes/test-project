@@ -6,14 +6,14 @@ import (
 	"github.com/golang-jwt/jwt"
 )
 
-type jwtCustomClaims struct {
+type JwtCustomClaims struct {
 	Id int `json:"id"`
 	jwt.StandardClaims
 }
 
 func GenerateToken(id int) (string, error) {
 	var err error = nil
-	claims := &jwtCustomClaims{
+	claims := &JwtCustomClaims{
 		id,
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Hour * 72).Unix(),
