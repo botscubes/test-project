@@ -6,7 +6,3 @@ router_1.router.route('/', function (req, res) {
     res.writeHead(200);
     res.end((0, template_1.template)("index"));
 });
-// router.route('/', (req: any, res: any) => {
-//     res.writeHead(200);
-//     res.end(template("index"));
-// });
