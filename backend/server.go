@@ -51,7 +51,7 @@ type User struct {
 }
 
 type TokenResponse struct {
-	Name string `json:"name"`
+	Token string `json:"token"`
 	errorCode
 }
 
@@ -86,10 +86,9 @@ func routes(e *echo.Echo) {
 						if err != nil {
 							errCode.Code = 8
 						} else {
-							user.SaveToken(token)
-							return c.JSON(http.StatusOK, echo.Map{
-								"token": token,
-							})
+							//user.SaveToken(token)
+							errCode.Token = token
+							return c.JSON(http.StatusOK, errCode)
 						}
 					} else {
 						errCode.Code = 10
@@ -151,6 +150,7 @@ func restrictedRoutes(r *echo.Group) {
 		id := claims.Id
 		name, err := db.DB.GetUserNameById(id)
 		if err != nil {
+			log.Println(err)
 			return c.String(http.StatusUnauthorized, "")
 		}
 

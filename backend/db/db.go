@@ -16,7 +16,7 @@ type DataBase struct {
 }
 
 func (db *DataBase) GetUserNameById(id int) (string, error) {
-	row := db.connection.QueryRow("select name from account where id = $1", id)
+	row := db.connection.QueryRow("select username from account where id = $1", id)
 	str := ""
 	err := row.Scan(&str)
 	return str, err
